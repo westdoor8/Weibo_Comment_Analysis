@@ -1,8 +1,9 @@
 import Login from './views/Login.vue'
 import NotFound from './views/404.vue'
 import Home from './views/Home.vue'
-import Table from './views/nav1/Table.vue'
+import UsersTable from './views/nav1/UserListTable.vue'
 import echarts from './views/charts/echarts.vue'
+import WeiboTable from './views/nav1/WeiboListTable'
 
 let routes = [
     {
@@ -25,7 +26,17 @@ let routes = [
         leaf: true,//只有一个节点
         iconCls: 'fa fa-id-card-o',//图标样式class
         children: [
-            { path: '/table', component: Table, name: '用户信息' },
+            { path: '/users_table', component: UsersTable, name: '用户信息' },
+        ]
+    },
+        {
+        path: '/',
+        component: Home,
+        name: 'Table',
+        leaf: true,//只有一个节点
+        iconCls: 'fa fa-id-card-o',//图标样式class
+        children: [
+            { path: '/weibos_table', component: WeiboTable, name: '微博信息' },
         ]
     },
     {

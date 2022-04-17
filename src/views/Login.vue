@@ -39,7 +39,7 @@
 			var token = sessionStorage.getItem('token');
 			if (token) {
         sessionStorage.setItem('token', token);
-        this.$router.push({ path: '/table' });
+        this.$router.push({ path: '/users_table' });
       }
     },
     methods: {

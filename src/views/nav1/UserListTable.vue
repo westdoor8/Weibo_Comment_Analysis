@@ -55,7 +55,6 @@ export default {
       const path = 'http://127.0.0.1:5000/api/users/listpage'
       axios.get(path)
         .then((res) => {
-          console.log(res.data.infos);
           this.userList = res.data.infos
           this.getCreateTable()
         })

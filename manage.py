@@ -73,6 +73,7 @@ class Admin(db.Model):
         return admin
 
 
+# 用户类
 class Users(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.String(20), doc='id', primary_key=True)
@@ -82,6 +83,34 @@ class Users(db.Model):
     follows_count = db.Column(db.Integer, doc='关注数')
     weibo_count = db.Column(db.Integer, doc='微博数')
     description = db.Column(db.String(255), doc='描述')
+
+    def to_dict(self):
+        columns = self.__table__.columns.keys()
+        result = {}
+        for key in columns:
+            if key == 'pub_date':
+                value = getattr(self, key).strftime("%Y-%m-%d %H:%M:%S")
+            else:
+                value = getattr(self, key)
+            result[key] = value
+        return result
+
+# 微博类
+class Weibos(db.Model):
+    __tablename__ = 'weibos'
+    id = db.Column(db.String(20), doc='id', primary_key=True)
+    bid = db.Column(db.String(12), doc='bid')
+    user_id = db.Column(db.String(20), doc='user_id')
+    screen_name = db.Column(db.String(30), doc='screen_name')
+    text = db.Column(db.String(2000), doc='text')
+    at_users = db.Column(db.String(255), doc='at_users')
+    location = db.Column(db.String(100), doc='location')
+    created_at = db.Column(db.String(20), doc='created_at')
+    full_created_at = db.Column(db.String(20), doc='full_created_at')
+    source = db.Column(db.String(30), doc='source')
+    attitudes_count = db.Column(db.Integer, doc='attitudes_count')
+    comments_count = db.Column(db.Integer, doc='comments_count')
+    reposts_count = db.Column(db.Integer, doc='reposts_count')
 
     def to_dict(self):
         columns = self.__table__.columns.keys()
@@ -135,6 +164,19 @@ def get_user_list():
     query = db.session.query
     Infos = query(Users).all()
     
+    return jsonify({
+        'code': 200,
+        'infos': [u.to_dict() for u in Infos]
+    })
+
+
+# 微博列表
+@app.route('/api/weibos/listpage', methods=['GET'])
+@auth.login_required
+def get_weibo_list():
+    query = db.session.query
+    Infos = query(Weibos).all()
+
     return jsonify({
         'code': 200,
         'infos': [u.to_dict() for u in Infos]
