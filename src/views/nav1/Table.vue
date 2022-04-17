@@ -6,7 +6,7 @@
 			</el-table-column>
       <el-table-column prop="id"  label="id" width="140" sortable>
 			</el-table-column>
-			<el-table-column prop="name" label="昵称" width="120" sortable>
+			<el-table-column prop="name" label="昵称" width="150" sortable>
 			</el-table-column>
       <el-table-column prop="gender" label="性别" width="120" sortable>
 			</el-table-column>

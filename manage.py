@@ -75,13 +75,13 @@ class Admin(db.Model):
 
 class Users(db.Model):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, doc='id', primary_key=True)
-    name = db.Column(db.String(64), doc='昵称')
-    gender = db.Column(db.String(64), doc='性别')
-    description = db.Column(db.String(64), doc='描述')
+    id = db.Column(db.String(20), doc='id', primary_key=True)
+    name = db.Column(db.String(30), doc='昵称')
+    gender = db.Column(db.String(10), doc='性别')
     fans_count = db.Column(db.Integer, doc='粉丝数')
     follows_count = db.Column(db.Integer, doc='关注数')
-    weibos_count = db.Column(db.Integer, doc='微博数')
+    weibo_count = db.Column(db.Integer, doc='微博数')
+    description = db.Column(db.String(255), doc='描述')
 
     def to_dict(self):
         columns = self.__table__.columns.keys()
@@ -134,53 +134,11 @@ def set_auth_pwd():
 def get_user_list():
     query = db.session.query
     Infos = query(Users).all()
+    
     return jsonify({
         'code': 200,
         'infos': [u.to_dict() for u in Infos]
     })
-
-
-# @app.route('/api/getdrawPieChart', methods=['GET'])
-# @auth.login_required
-# def getdrawPieChart():
-#     query = db.session.query
-#     Infos = query(JoinInfos)
-#     total = Infos.count()
-#     data_value = [0, 0, 0, 0, 0, 0, 0]  # 和下面组别一一对应
-#     group_value = ['视觉', '视频', '前端', '办公', '后端', '运营', '移动']
-#     for info in Infos:
-#         for num in range(0, 7):
-#             if group_value[num] in info.group:
-#                 data_value[num] += 1
-#             else:
-#                 pass
-#     return jsonify({'code': 200, 'value': data_value, 'total': total})
-
-
-# @app.route('/api/getdrawLineChart', methods=['GET'])
-# @auth.login_required
-# def getdrawLineChart():
-#     grade_value = []  # 年级汇总
-#     profess_value = []  # 学院汇总
-#     grade_data = {}  # 年级各学院字典
-#     Infos = JoinInfos.query.all()
-#     for info in Infos:
-#         if info.grade not in grade_value:
-#             grade_value.append(info.grade)
-#             grade_data[info.grade] = []
-#         if info.profess not in profess_value:
-#             profess_value.append(info.profess)
-#     for grade in grade_value:
-#         for profess in profess_value:
-#             grade_data[grade].append(0)
-#     for info in Infos:
-#         for grade in grade_value:
-#             for profess_local_num in range(0, len(profess_value)):
-#                 if info.profess == profess_value[profess_local_num] and info.grade == grade:
-#                     grade_data[grade][profess_local_num] += 1
-#                 else:
-#                     pass
-#     return jsonify({'code': 200, 'profess_value': profess_value, 'grade_value': grade_value, 'grade_data': grade_data})
 
 
 @auth.error_handler
