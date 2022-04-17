@@ -10,13 +10,13 @@
 			</el-table-column>
       <el-table-column prop="gender" label="性别" width="120" sortable>
 			</el-table-column>
-      <el-table-column prop="description" label="描述" width="200" sortable>
+      <el-table-column prop="description" label="描述" width="400" sortable>
 			</el-table-column>
       <el-table-column prop="fans_count" label="粉丝数" width="170" sortable>
 			</el-table-column>
       <el-table-column prop="follows_count" label="关注数" width="90" sortable>
 			</el-table-column>
-			<el-table-column prop="weibos_count" label="微博数" width="90" sortable>
+			<el-table-column prop="weibo_count" label="微博数" width="90" sortable>
 			</el-table-column>
 		</el-table>
   <el-pagination
