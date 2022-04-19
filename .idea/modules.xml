@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/vue-admin-flask-example-master.iml" filepath="$PROJECT_DIR$/.idea/vue-admin-flask-example-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/weibo-comment-analysis-system.iml" filepath="$PROJECT_DIR$/.idea/weibo-comment-analysis-system.iml" />
     </modules>
   </component>
 </project>

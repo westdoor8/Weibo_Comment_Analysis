@@ -66,7 +66,7 @@
                 });
                 sessionStorage.setItem('token', JSON.stringify(token));
                 sessionStorage.setItem('name', JSON.stringify(name));
-                this.$router.push({ path: '/table' });
+                this.$router.push({ path: '/users_table' });
               }
             });
           } else {

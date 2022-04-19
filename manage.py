@@ -3,9 +3,11 @@
 import os
 import re
 import json
-from datetime import datetime
+import io
 
-from flask import Flask, g, jsonify, make_response, request
+from datetime import datetime
+from PIL import Image
+from flask import Flask, g, jsonify, make_response, request, render_template
 from flask_cors import CORS
 from flask_httpauth import HTTPBasicAuth
 from flask_sqlalchemy import SQLAlchemy
@@ -13,6 +15,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous import BadSignature, SignatureExpired
 from passlib.apps import custom_app_context
 import pymysql
+import base64
 
 pymysql.install_as_MySQLdb()
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -73,8 +76,10 @@ class Admin(db.Model):
         return admin
 
 
-# 用户类
 class Users(db.Model):
+    """
+    用户类
+    """
     __tablename__ = 'users'
     id = db.Column(db.String(20), doc='id', primary_key=True)
     name = db.Column(db.String(30), doc='昵称')
@@ -95,8 +100,11 @@ class Users(db.Model):
             result[key] = value
         return result
 
-# 微博类
+
 class Weibos(db.Model):
+    """
+    微博类
+    """
     __tablename__ = 'weibos'
     id = db.Column(db.String(20), doc='id', primary_key=True)
     bid = db.Column(db.String(12), doc='bid')
@@ -181,6 +189,19 @@ def get_weibo_list():
         'code': 200,
         'infos': [u.to_dict() for u in Infos]
     })
+
+
+# 生成词云图片接口
+@app.route('/api/wordcloud/w2', methods=["GET"])
+def wc():
+    img_url = basedir + '/app/images/jinkou_comment.png'
+    img_stream = ''
+    with open(img_url, 'rb') as f:  # 'rb' 允许打开二进制的图片
+        img_stream = f.read()
+        img_stream = base64.b64encode(img_stream)
+
+    # print(img_stream.decode())
+    return img_stream.decode()
 
 
 @auth.error_handler

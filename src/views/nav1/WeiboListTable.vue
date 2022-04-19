@@ -100,12 +100,12 @@ export default {
     },
     // 分页方法（重点）
     currentChangePage(list, currentPage) {
-      let from = (currentPage - 1) * this.pageSize
+      let from1 = (currentPage - 1) * this.pageSize
       this.tempList = []
       const to = currentPage * this.pageSize
-      for (; from < to; from++) {
-        if (list[from]) {
-          this.tempList.push(list[from])
+      for (; from1 < to; from1++) {
+        if (list[from1]) {
+          this.tempList.push(list[from1])
         }
       }
     },

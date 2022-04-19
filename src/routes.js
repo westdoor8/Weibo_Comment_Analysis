@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import UsersTable from './views/nav1/UserListTable.vue'
 import echarts from './views/charts/echarts.vue'
 import WeiboTable from './views/nav1/WeiboListTable'
+import WordCloud from "./views/wc/WordCloud";
 
 let routes = [
     {
@@ -37,6 +38,16 @@ let routes = [
         iconCls: 'fa fa-id-card-o',//图标样式class
         children: [
             { path: '/weibos_table', component: WeiboTable, name: '微博信息' },
+        ]
+    },
+            {
+        path: '/',
+        component: Home,
+        name: 'Charts',
+        leaf: true,
+        iconCls: 'fa fa-bar-chart',
+        children: [
+            { path: '/wordcloud', component: WordCloud, name: '词云' }
         ]
     },
     {
